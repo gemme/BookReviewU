@@ -13,32 +13,42 @@ import {
   Text,
   useColorScheme,
   View,
+  TextInput
 } from 'react-native';
-
 import {
   Colors,
 } from 'react-native/Libraries/NewAppScreen';
 import headerStyle from './HeaderStyle';
-
+import {useState} from 'react';
 
 const books = [
-  { title: 'La insoportable levedad del ser', author: 'Milan Kunder' },
+  { title: 'La insoportable levedad del ser', author: 'Milan Kundera' },
   { title: 'Azteca', author: 'Gary Jennings' },
   { title: 'El perfume', author: 'Patrick Suskind' }
 ];
 
 const App = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
+  const [searchText, setSearchText] = useState('');
 
   return (
     <SafeAreaView style={styles.container}>
       <Text style={headerStyle.header}>{'Book Review'}</Text>
+      <TextInput
+        style={styles.textInput}
+        placeholder={'Search'}
+        onChangeText={((text) => {
+          setSearchText(text);
+        })}
+      />
       {
-        books.map((book, index) => {
+        books
+        .filter(book => {
+          return (
+            book.title.toLocaleLowerCase().indexOf(searchText.toLocaleLowerCase()) > -1 ||
+            book.author.toLocaleLowerCase().indexOf(searchText.toLocaleLowerCase()) > -1
+            )
+        })
+        .map((book, index) => {
           return (
             <View style={[
                 styles.row,
@@ -80,7 +90,16 @@ const styles = StyleSheet.create({
     flex: 8,
     flexDirection: 'column'
   },
-  author: { color: 'grey' }
+  author: { color: 'grey' },
+  textInput: {
+    marginBottom: 30,
+    padding: 10,
+    paddingHorizontal: 20,
+    fontSize: 16,
+    borderBottomWidth: 1,
+    borderColor: '#ddd',
+    backgroundColor: '#F5F5F5F5'
+  }
 });
 
 export default App;
