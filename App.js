@@ -18,11 +18,13 @@ import {
 import {
   Colors,
 } from 'react-native/Libraries/NewAppScreen';
+import headerStyle from './HeaderStyle';
+
 
 const books = [
-  {title: 'La insoportable levedad del ser', author: 'Milan Kunder'},
-  {title: 'Azteca', author: 'Gary Jennings'},
-  {title: 'El perfume', author: 'Patrick Suskind'}
+  { title: 'La insoportable levedad del ser', author: 'Milan Kunder' },
+  { title: 'Azteca', author: 'Gary Jennings' },
+  { title: 'El perfume', author: 'Patrick Suskind' }
 ];
 
 const App = () => {
@@ -33,42 +35,26 @@ const App = () => {
   };
 
   return (
-    <SafeAreaView style={{
-      flex: 1
-    }}>
-      <Text style={{
-        textAlign: 'center',
-        fontSize: 40,
-        color: '#f44242',
-        padding: 50,
-        fontWeight: '300'
-      }}>{'Book Review'}</Text>
+    <SafeAreaView style={styles.container}>
+      <Text style={headerStyle.header}>{'Book Review'}</Text>
       {
         books.map((book, index) => {
           return (
-            <View style={{
-              flexDirection: 'row'
-            }}>
-              <View style={{
-                flex: 1,
-                justifyContent: 'center',
-                alignItems: 'center'
-              }}>
+            <View style={[
+                styles.row,
+                {
+                  backgroundColor: index % 2 ? 'white' : '#F3F3F7'
+                }
+              ]}>
+              <View style={styles.edges}>
                 <Text>{index + 1}</Text>
               </View>
-              <View style={{
-                flex: 8,
-                flexDirection: 'column'
-              }}>
+              <View style={styles.titleBook}>
                 <Text>{book.title}</Text>
-                <Text style={{color: 'grey'}}>{book.author}</Text>
+                <Text style={styles.author}>{book.author}</Text>
               </View>
-              <View style={{
-                flex: 1,
-                justifyContent: 'center',
-                alignItems: 'center'
-              }}>
-                <Text style={{color: 'grey'}}>{'Info'}</Text>
+              <View style={styles.edges}>
+                <Text >{'Info'}</Text>
               </View>
             </View>
           )
@@ -79,22 +65,22 @@ const App = () => {
 };
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  container: {
+    flex: 1
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
+  row: {
+    flexDirection: 'row'
   },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
+  edges: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
-  highlight: {
-    fontWeight: '700',
+  titleBook: {
+    flex: 8,
+    flexDirection: 'column'
   },
+  author: { color: 'grey' }
 });
 
 export default App;
