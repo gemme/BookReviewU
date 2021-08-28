@@ -14,7 +14,8 @@ import {
   useColorScheme,
   View,
   TextInput,
-  FlatList
+  FlatList,
+  Image,
 } from 'react-native';
 import {
   Colors,
@@ -24,7 +25,7 @@ import {useState, useEffect} from 'react';
 import Header from 'components/Header';
 import BookRow from 'components/BookRow';
 import { API_URL } from './src/constants';
-
+import BookImage from 'assets/book.png';
 const App = () => {
   const [searchText, setSearchText] = useState('');
   const [books, setBooks] = useState([]);
@@ -42,6 +43,18 @@ const App = () => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <View style={{
+        alignItems: 'center',
+        marginTop: 30
+      }}>
+        <Image
+          source={BookImage}
+          style={{
+            width: 50,
+            height: 50
+          }}
+        />
+      </View>
       <Header />
       <TextInput
         style={styles.textInput}

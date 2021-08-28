@@ -4,9 +4,10 @@ import {
     View,
     Text,
     StyleSheet,
-    TouchableOpacity
+    TouchableOpacity,
+    Image,
 } from 'react-native';
-
+import { IMG_URL } from '../constants';
 const BookRow = ({ book, index }) => {
     const [showInfo, setShowInfo] = useState(false);
     return (
@@ -17,7 +18,13 @@ const BookRow = ({ book, index }) => {
             }
         ]}>
             <View style={styles.edges}>
-                <Text>{index + 1}</Text>
+                <Image
+                    source={{uri:`${IMG_URL}${book.image}`}}
+                    style={{
+                        width: 60,
+                        height: 80
+                    }}
+                />
             </View>
             <View style={styles.titleBook}>
                 <Text>{book.title}</Text>
