@@ -18,9 +18,9 @@ import {
 import {
   Colors,
 } from 'react-native/Libraries/NewAppScreen';
-import headerStyle from './HeaderStyle';
+import headerStyle from 'styles/HeaderStyle';
 import {useState} from 'react';
-import Header from './Header';
+import Header from 'components/Header';
 
 const books = [
   { title: 'La insoportable levedad del ser', author: 'Milan Kundera' },
