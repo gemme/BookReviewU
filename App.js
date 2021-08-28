@@ -8,80 +8,39 @@
 
 import React from 'react';
 import {
-  SafeAreaView,
   StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-  TextInput,
-  FlatList,
-  Image,
 } from 'react-native';
-import {
-  Colors,
-} from 'react-native/Libraries/NewAppScreen';
-import headerStyle from 'styles/HeaderStyle';
-import {useState, useEffect} from 'react';
-import Header from 'components/Header';
-import BookRow from 'components/BookRow';
-import { API_URL } from './src/constants';
-import BookImage from 'assets/book.png';
+import BookInfo from 'components/BookInfo';
+import BookList from 'components/BookList';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+
+const Stack = createNativeStackNavigator();
+
 const App = () => {
-  const [searchText, setSearchText] = useState('');
-  const [books, setBooks] = useState([]);
-
-  // componentDidMount
-  useEffect(() => {
-    fetch(`${API_URL}Books`)
-    .then(response => response.json())
-    .then(data => {
-      setBooks(data);
-    })
-    .catch(error => { console.log(error); });
-  }, []);
-
-
-  return (
-    <SafeAreaView style={styles.container}>
-      <View style={{
-        alignItems: 'center',
-        marginTop: 30
-      }}>
-        <Image
-          source={BookImage}
-          style={{
-            width: 50,
-            height: 50
-          }}
-        />
-      </View>
-      <Header />
-      <TextInput
-        style={styles.textInput}
-        placeholder={'Search'}
-        onChangeText={((text) => {
-          setSearchText(text);
-        })}
-      />
-      <FlatList
-        data={
-          books
-          .filter(book => {
-            return (
-              book.title.toLocaleLowerCase().indexOf(searchText.toLocaleLowerCase()) > -1 ||
-              book.author.toLocaleLowerCase().indexOf(searchText.toLocaleLowerCase()) > -1
-              )
-          })
-        }
-        renderItem={
-          ({item, index}) => {
-            return <BookRow book={item} index={index}/>
-          }
-        }
-        keyExtractor={(book) => book.title }
-        />
-    </SafeAreaView>
-  );
+ return(
+   <NavigationContainer>
+     <Stack.Navigator
+      initialRouteName='Home'
+      screenOptions={{
+        title: 'Book Info',
+        headerStyle:{
+          backgroundColor: 'black',
+          color: 'white'
+        },
+        headerTintColor: 'white',
+        headerTitleColor: {
+          color: 'white'
+        },
+        headerShown: true
+      }}
+     >
+       <Stack.Screen name='Home' component={BookList}/>
+       <Stack.Screen name='Info' component={BookInfo}/>
+     </Stack.Navigator>
+   </NavigationContainer>
+ );
 };
 
 const styles = StyleSheet.create({

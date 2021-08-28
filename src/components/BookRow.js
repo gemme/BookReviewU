@@ -9,7 +9,8 @@ import {
 } from 'react-native';
 import { IMG_URL } from '../constants';
 import Star from 'components/Star';
-const BookRow = ({ book, index }) => {
+import { useLinkProps } from '@react-navigation/native';
+const BookRow = ({ book, index, navigation }) => {
     const [showInfo, setShowInfo] = useState(false);
     return (
         <View style={[
@@ -20,7 +21,7 @@ const BookRow = ({ book, index }) => {
         ]}>
             <View style={styles.edges}>
                 <Image
-                    source={{uri:`${IMG_URL}${book.image}`}}
+                    source={{ uri: `${IMG_URL}${book.image}` }}
                     style={{
                         width: 60,
                         height: 80
@@ -34,14 +35,25 @@ const BookRow = ({ book, index }) => {
                     <Text>{book.title}</Text>
                     <Text style={styles.author}>{book.author}</Text>
                 </View>
-                 <Star rating={3}/>
+                <Star rating={3} />
             </View>
             <View style={styles.edges}>
                 <TouchableOpacity
                     onPress={() => {
+                        /*
                         setShowInfo(prevShowInfo => {
                             return !prevShowInfo;
                         });
+                        */
+                        navigation.navigate('Info', {book});
+                        /*
+                        navigation.navigate('Info', {
+                            book: {
+                                title: book.title,
+                                author: book.author,
+                            }
+                        });
+                        */
                     }}
                     styles={styles.button}
                 >
@@ -49,11 +61,11 @@ const BookRow = ({ book, index }) => {
                 </TouchableOpacity>
             </View>
             {
-            showInfo && (
-                <View>
-                    <Text>{'Book Info'}</Text>
-                </View>
-            )
+                showInfo && (
+                    <View>
+                        <Text>{'Book Info'}</Text>
+                    </View>
+                )
             }
         </View>
     );
@@ -61,13 +73,13 @@ const BookRow = ({ book, index }) => {
 
 const styles = StyleSheet.create({
     row: {
-      flexDirection: 'row'
+        flexDirection: 'row'
     },
     edges: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      minWidth: 50,
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        minWidth: 50,
     },
     bookContainer: {
         flex: 8,
@@ -76,7 +88,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     titleBook: {
-      fontSize: 200
+        fontSize: 200
     },
     author: { color: 'grey' },
     button: {
@@ -86,6 +98,6 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         paddingVertical: 2
     }
-  });
+});
 
 export default BookRow;
