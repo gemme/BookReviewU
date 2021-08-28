@@ -1,11 +1,14 @@
 import React from 'react';
+import { useState } from 'react';
 import {
     View,
     Text,
-    StyleSheet
+    StyleSheet,
+    TouchableOpacity
 } from 'react-native';
 
 const BookRow = ({ book, index }) => {
+    const [showInfo, setShowInfo] = useState(false);
     return (
         <View style={[
             styles.row,
@@ -21,8 +24,24 @@ const BookRow = ({ book, index }) => {
                 <Text style={styles.author}>{book.author}</Text>
             </View>
             <View style={styles.edges}>
-                <Text >{'Info'}</Text>
+                <TouchableOpacity
+                    onPress={() => {
+                        setShowInfo(prevShowInfo => {
+                            return !prevShowInfo;
+                        });
+                    }}
+                    styles={styles.button}
+                >
+                    <Text>{'Info'}</Text>
+                </TouchableOpacity>
             </View>
+            {
+            showInfo && (
+                <View>
+                    <Text>{'Book Info'}</Text>
+                </View>
+            )
+            }
         </View>
     );
 }
@@ -34,13 +53,21 @@ const styles = StyleSheet.create({
     edges: {
       flex: 1,
       justifyContent: 'center',
-      alignItems: 'center'
+      alignItems: 'center',
+      minWidth: 50,
     },
     titleBook: {
       flex: 8,
       flexDirection: 'column'
     },
     author: { color: 'grey' },
+    button: {
+        borderWidth: 1,
+        borderColor: '#000000',
+        borderRadius: 10,
+        paddingHorizontal: 10,
+        paddingVertical: 2
+    }
   });
 
 export default BookRow;
