@@ -8,6 +8,7 @@ import {
     Image,
 } from 'react-native';
 import { IMG_URL } from '../constants';
+import Star from 'components/Star';
 const BookRow = ({ book, index }) => {
     const [showInfo, setShowInfo] = useState(false);
     return (
@@ -26,9 +27,14 @@ const BookRow = ({ book, index }) => {
                     }}
                 />
             </View>
-            <View style={styles.titleBook}>
-                <Text>{book.title}</Text>
-                <Text style={styles.author}>{book.author}</Text>
+            <View
+                style={styles.bookContainer}
+            >
+                <View style={styles.titleBook}>
+                    <Text>{book.title}</Text>
+                    <Text style={styles.author}>{book.author}</Text>
+                </View>
+                 <Star rating={3}/>
             </View>
             <View style={styles.edges}>
                 <TouchableOpacity
@@ -63,9 +69,14 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       minWidth: 50,
     },
+    bookContainer: {
+        flex: 8,
+        flexDirection: 'column',
+        alignItems: 'flex-start',
+        justifyContent: 'center'
+    },
     titleBook: {
-      flex: 8,
-      flexDirection: 'column'
+      fontSize: 200
     },
     author: { color: 'grey' },
     button: {
