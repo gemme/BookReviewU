@@ -14,7 +14,7 @@ import {
   useColorScheme,
   View,
   TextInput,
-  ScrollView
+  FlatList
 } from 'react-native';
 import {
   Colors,
@@ -22,6 +22,7 @@ import {
 import headerStyle from 'styles/HeaderStyle';
 import {useState} from 'react';
 import Header from 'components/Header';
+import BookRow from 'components/BookRow';
 
 const books = [
   { title: 'El Perfume', author: 'Patrick Süskind', image: 'el_perfume.jpeg', rating: 0 },
@@ -65,8 +66,8 @@ const App = () => {
           setSearchText(text);
         })}
       />
-      <ScrollView contentContainerStyle={{paddingTop: 30}}>
-        {
+      <FlatList
+        data={
           books
           .filter(book => {
             return (
@@ -74,29 +75,14 @@ const App = () => {
               book.author.toLocaleLowerCase().indexOf(searchText.toLocaleLowerCase()) > -1
               )
           })
-          .map((book, index) => {
-            return (
-              <View style={[
-                  styles.row,
-                  {
-                    backgroundColor: index % 2 ? 'white' : '#F3F3F7'
-                  }
-                ]}>
-                <View style={styles.edges}>
-                  <Text>{index + 1}</Text>
-                </View>
-                <View style={styles.titleBook}>
-                  <Text>{book.title}</Text>
-                  <Text style={styles.author}>{book.author}</Text>
-                </View>
-                <View style={styles.edges}>
-                  <Text >{'Info'}</Text>
-                </View>
-              </View>
-            )
-          })
         }
-      </ScrollView>
+        renderItem={
+          ({item, index}) => {
+            return <BookRow book={item} index={index}/>
+          }
+        }
+        keyExtractor={(book) => book.title }
+        />
     </SafeAreaView>
   );
 };
@@ -130,3 +116,36 @@ const styles = StyleSheet.create({
 });
 
 export default App;
+
+
+
+/* {
+  books
+  .filter(book => {
+    return (
+      book.title.toLocaleLowerCase().indexOf(searchText.toLocaleLowerCase()) > -1 ||
+      book.author.toLocaleLowerCase().indexOf(searchText.toLocaleLowerCase()) > -1
+      )
+  })
+  .map((book, index) => {
+    return (
+      <View style={[
+          styles.row,
+          {
+            backgroundColor: index % 2 ? 'white' : '#F3F3F7'
+          }
+        ]}>
+        <View style={styles.edges}>
+          <Text>{index + 1}</Text>
+        </View>
+        <View style={styles.titleBook}>
+          <Text>{book.title}</Text>
+          <Text style={styles.author}>{book.author}</Text>
+        </View>
+        <View style={styles.edges}>
+          <Text >{'Info'}</Text>
+        </View>
+      </View>
+    )
+  })
+} */
