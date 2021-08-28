@@ -7,7 +7,14 @@ const headerStyle = StyleSheet.create({
         color: '#f44242',
         padding: 50,
         fontWeight: '300'
-      }
+    },
+    iOSheader: {
+        textAlign: 'center',
+        fontSize: 20,
+        color: '#f44242',
+        padding: 50,
+        fontWeight: '300'
+    }
 });
 
 export default headerStyle;

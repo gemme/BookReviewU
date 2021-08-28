@@ -20,6 +20,7 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 import headerStyle from './HeaderStyle';
 import {useState} from 'react';
+import Header from './Header';
 
 const books = [
   { title: 'La insoportable levedad del ser', author: 'Milan Kundera' },
@@ -32,7 +33,8 @@ const App = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={headerStyle.header}>{'Book Review'}</Text>
+      <Header />
+
       <TextInput
         style={styles.textInput}
         placeholder={'Search'}
